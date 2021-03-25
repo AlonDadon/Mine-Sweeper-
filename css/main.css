@@ -212,8 +212,10 @@ header h1 {
 .leader-boards-modal {
     display: table;
     position: absolute;
-    right: 50%;
-    top: 50%;
+    /* right: 50%;
+    top: 50%; */
+    right: 40%;
+    top: 57%;
     transform: scale3d(1.5, 1.5, 1.5);
 }
 
