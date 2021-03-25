@@ -32,7 +32,7 @@ function newGame() {
         countSafeClick: 3
     }
     gLeaderBoards = loadFromStorage(STORAGE_KEY)
-    if(!gLeaderBoards){
+    if (!gLeaderBoards) {
         gLeaderBoards = []
         _createPlayers()
     }
@@ -41,15 +41,13 @@ function newGame() {
     gLastEmptyCells = []
 }
 
-function _createPlayers(){
-    var firstName = ['Ugi','Sugi','Pugi','Tuti','Fruti']
-    var lastName = ['ben david','sugun','pugon','Tuton','Fruton']
+function _createPlayers() {
+    var firstName = ['Ugi', 'Sugi', 'Pugi', 'Tuti', 'Fruti']
+    var lastName = ['ben david', 'sugun', 'pugon', 'Tuton', 'Fruton']
     for (var i = 0; i < 5; i++) {
-       gLeaderBoards.push(_createPlayer(firstName[i],lastName[i]))
+        gLeaderBoards.push(_createPlayer(firstName[i], lastName[i]))
     }
 }
-
-
 
 function startTime() {
     gTimeInterval = setInterval(timerUpdate, 1000)
@@ -133,6 +131,8 @@ function updateLifeCount() {
 function checkGameOver() {
     if (!gGame.isOn) return
     var countCell = gBoard.length ** 2
+    if(gGame.emptyCellShownCount > countCell /2) renderActionCard(4)
+    if(gGame.emptyCellShownCount > countCell /1.2) renderActionCard(5)
     if (gGame.minesMarkedCount + gGame.emptyCellShownCount === countCell) {
         gameOver(true)
     }
@@ -141,7 +141,7 @@ function checkGameOver() {
     }
     return false
 }
-function stopTime(){
+function stopTime() {
     clearInterval(gTimeInterval)
     clearInterval(gRenderTimer)
 }
@@ -152,10 +152,10 @@ function gameOver(isVictory) {
     if (isVictory) {
         updateEmoji('😏')
         updateGameOverModal(isVictory)
-        onToggleModalByClass('.game-over-panel',false)
+        onToggleModalByClass('.game-over-panel', false)
     }
     updateGameOverModal(isVictory)
-    onToggleModalByClass('.game-over-panel',false)
+    onToggleModalByClass('.game-over-panel', false)
 }
 
 function updateCellShown(pos) {
@@ -239,6 +239,7 @@ function expandShown(pos) {
     } else {
         if (gEmptyCells.length) loopExpandShown()
     }
+    renderActionCard(6)
 }
 
 function loopExpandShown() {
@@ -294,7 +295,7 @@ function addNewPlayer(firstName, lastName) {
 function _createPlayer(firstName, lastName) {
     var scoreByLevel = gLevel.size / gGame.secsPassed
     var finalScore = gGame.emptyCellShownCount * scoreByLevel * 1000
-    if(!finalScore)finalScore = getRandomInt(2,2000)
+    if (!finalScore) finalScore = getRandomInt(2, 2000)
     var player = {
         id: _makeId(),
         firstName,

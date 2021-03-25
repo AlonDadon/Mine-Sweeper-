@@ -253,21 +253,25 @@ header h1{
 }
 
 /* card-action */
-
     .action-card{
         display: flex;
         justify-content: center;
         flex-direction: column;
         position: absolute;
-        top: 60%;
-        left: 0%;
+        top: 45%;
+        right: 2%;
+        border: 2px solid;
+        color: white;
+        font-size: 1.3em;
     }
+    
     .action-txt{
+        text-align: center;
         font-size: .5em;
     }
     .action-img{
-        height:  11rem;
-        width: 11rem;
+        height: 10rem;
+        width: 10rem;
     }
 
 /* util */

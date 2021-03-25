@@ -7,6 +7,7 @@ var gRenderTimer
 var gLastElBtn = document.querySelector('.btn1')
 var gIsSafeClick
 function init() {
+    onToggleModalByClass('.action-card', false)
     gFirstClick = true
     gIsSafeClick = false
     newGame()
@@ -17,6 +18,7 @@ function init() {
     renderHints()
     renderLeaderBoards()
     renderTimer()
+    renderActionCard(0)
 }
 
 function renderBoard(board) {
@@ -59,6 +61,7 @@ function onCellClicked(elCell, i, j) {
         j: +elCell.dataset.j
     }
     if (gIsSafeClick) {
+        renderActionCard(1)
         gIsSafeClick = false
     }
     if (gFirstClick) {
@@ -117,6 +120,7 @@ function renderLife() {
     var lifeStr = '💖'
     var elLife = document.querySelector('.life-count')
     elLife.innerText = lifeStr.repeat(life.lifeCount)
+    renderActionCard(3)
 }
 
 function renderEmoji() {
@@ -153,6 +157,7 @@ function onHints() {
     updateIsHint(true)
     var elHint = document.querySelector('.hints-count')
     elHint.style.backgroundColor = "red"
+    renderActionCard(2)
 }
 
 function renderHints() {
@@ -173,7 +178,7 @@ function onIronMan(ev) {
     }
 }
 
-function onAddPlayer() {
+function onAddPlayer() {  
     var firstName = document.querySelector('#f-name').value
     var lastName = document.querySelector('#l-name').value
     if (!firstName || !lastName) return
@@ -189,7 +194,6 @@ function onToggleModalByClass(className, isHidden) {
     if (isHidden) elToggle.classList.add('hidden')
     else elToggle.classList.remove('hidden')
 }
-
 
 function renderLeaderBoards() {
     var strHTML = '<thead><tr><th class="table-header" colspan="2">Leaderboards</th>'
@@ -218,9 +222,11 @@ function onSafeClick() {
     safeClick()
     var board = getBoard()
     renderBoard(board)
+    
 }
 
 function updateGameOverModal(isVictory) {
+    onToggleModalByClass('.action-card', true)
     var victoryStr = `Well done Champion, you managed to beat the wolf.
  But it's not over! Continue to the next challenge and break the record`
     var elImg = document.querySelector('.is-victory-img')
@@ -228,7 +234,32 @@ function updateGameOverModal(isVictory) {
         victoryStr = `You have managed to take another step on the road to success
      ... the best way to expand is to learn from your losses !! Try again`
         elImg.src = 'images/6.jpg'
-    } else elImg.src = 'images/5.jpg'
+    } else elImg.src = 'images/super-genius.jpg'
     var elStr = document.querySelector('.is-victory')
     elStr.innerText = victoryStr
+}
+
+function renderActionCard(idx) {
+    var actions = [
+        { txt: 'Are you ready to start playing?', imgNum: 1 },
+        { txt: 'I\'m waiting for you', imgNum: 2 },
+        { txt: 'You are on the right path', imgNum: 3 },
+        { txt: 'Hops ... you better be careful from now on', imgNum: 4 },
+        { txt: 'I have a few more surprises for you', imgNum: 8 },
+        { txt: 'You will never defeat me', imgNum: 5 },
+        { txt: 'I\'m close to you', imgNum: 9 },
+]
+    var elTxt = document.querySelector('.action-txt')
+    var elImg = document.querySelector('.action-img')
+    elImg.src = `images/${actions[idx].imgNum}.jpg`
+    elTxt.innerText = actions[idx].txt
+
+}
+
+playSound(1)
+playSound(1)
+playSound(1)
+function playSound(sound) {
+    var playSound = new Audio(`./sound/${sound}.mp3`)
+    playSound.play()
 }
