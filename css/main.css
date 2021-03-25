@@ -9,11 +9,13 @@ body {
 }
 
  button:hover {
-    color: darkorchid;
-    background: #cacaca;
+    color: rgb(245, 245, 245);
     text-decoration: none;
     border: solid darkorchid 2px;
+    background-color: #9791ee;
+    box-shadow: inset 0px 0px 8px 0px black;
 }
+
 
 header h1{
     font-size: 1.5em;
@@ -100,6 +102,10 @@ header h1{
         border: solid #ffffff 2px;
         margin-right: 3px;
     }
+    .chose{
+        background-color: #2e23d8;
+    box-shadow: inset 0px 0px 8px 0px black;
+}
 
 /* emoji */
 .emoji{
@@ -115,8 +121,8 @@ header h1{
 }
 
 .cell {
-    width: 25px;
-    height: 25px;
+    width: 1.5rem;
+    height: 1.5rem;
     text-align: center;
     box-shadow: 0px 0px 4px 0px #05111b;
     transition: background-color 1s;
@@ -203,6 +209,7 @@ header h1{
     border-collapse: collapse;
     border-spacing: 0px;
     border-style: outset;
+    margin: auto;
 }
 
 .leader-boards-container .table-header {
@@ -259,7 +266,7 @@ header h1{
         flex-direction: column;
         position: absolute;
         top: 45%;
-        right: 2%;
+        right: 10%;
         border: 2px solid;
         color: white;
         font-size: 1.3em;
@@ -267,11 +274,12 @@ header h1{
     
     .action-txt{
         text-align: center;
-        font-size: .5em;
+        font-size: .8em;
     }
     .action-img{
-        height: 10rem;
-        width: 10rem;
+        height: 15rem;
+        width: 14rem;
+
     }
 
 /* util */
@@ -284,3 +292,4 @@ header h1{
     justify-content: center;
     align-items: center;
 }
+

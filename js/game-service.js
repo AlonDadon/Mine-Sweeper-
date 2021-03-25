@@ -8,8 +8,8 @@ var gTime
 var gTimeInterval
 var gGame
 var gLevel = {
-    size: 4,
-    mines: 2
+    size: 12,
+    mines: 30
 }
 var gIsHint
 var gEmptyCells
@@ -156,6 +156,7 @@ function gameOver(isVictory) {
     }
     updateGameOverModal(isVictory)
     onToggleModalByClass('.game-over-panel', false)
+    renderMines()
 }
 
 function updateCellShown(pos) {

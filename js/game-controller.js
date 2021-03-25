@@ -4,7 +4,7 @@ const MINE = '🧨'
 const FLAG = '🌳'
 var gFirstClick
 var gRenderTimer
-var gLastElBtn = document.querySelector('.btn1')
+var gLastElBtn = document.querySelector('.btn3')
 var gIsSafeClick
 function init() {
     onToggleModalByClass('.action-card', false)
@@ -256,9 +256,19 @@ function renderActionCard(idx) {
 
 }
 
-playSound(1)
-playSound(1)
-playSound(1)
+function renderMines(){
+   var mines = document.querySelectorAll('.is-mine')
+   for (var i = 0; i < mines.length; i++) {
+    var pos = {
+        i: +mines[i].dataset.i,
+        j: +mines[i].dataset.j
+    }
+    updateCellShown(pos)
+   } 
+}
+
+
+
 function playSound(sound) {
     var playSound = new Audio(`./sound/${sound}.mp3`)
     playSound.play()
