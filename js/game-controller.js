@@ -19,6 +19,7 @@ function init() {
     renderLeaderBoards()
     renderTimer()
     renderActionCard(0)
+    renderSafeClickCount()
 }
 
 function renderBoard(board) {
@@ -178,7 +179,7 @@ function onIronMan(ev) {
     }
 }
 
-function onAddPlayer() {  
+function onAddPlayer() {
     var firstName = document.querySelector('#f-name').value
     var lastName = document.querySelector('#l-name').value
     if (!firstName || !lastName) return
@@ -222,7 +223,7 @@ function onSafeClick() {
     safeClick()
     var board = getBoard()
     renderBoard(board)
-    
+   
 }
 
 function updateGameOverModal(isVictory) {
@@ -248,7 +249,7 @@ function renderActionCard(idx) {
         { txt: 'I have a few more surprises for you', imgNum: 8 },
         { txt: 'You will never defeat me', imgNum: 5 },
         { txt: 'I\'m close to you', imgNum: 9 },
-]
+    ]
     var elTxt = document.querySelector('.action-txt')
     var elImg = document.querySelector('.action-img')
     elImg.src = `images/${actions[idx].imgNum}.jpg`
@@ -256,15 +257,21 @@ function renderActionCard(idx) {
 
 }
 
-function renderMines(){
-   var mines = document.querySelectorAll('.is-mine')
-   for (var i = 0; i < mines.length; i++) {
-    var pos = {
-        i: +mines[i].dataset.i,
-        j: +mines[i].dataset.j
+function renderMines() {
+    var mines = document.querySelectorAll('.is-mine')
+    for (var i = 0; i < mines.length; i++) {
+        var pos = {
+            i: +mines[i].dataset.i,
+            j: +mines[i].dataset.j
+        }
+        updateCellShown(pos)
     }
-    updateCellShown(pos)
-   } 
+}
+
+function renderSafeClickCount() {
+    var game = getGGame()
+    var elSafeClickCount = document.querySelector('.btn-safe-click span')
+    elSafeClickCount.innerText = game.countSafeClick
 }
 
 

@@ -27,7 +27,7 @@ function newGame() {
         minesMarkedCount: 0,
         secsPassed: 0,
         lifeCount: 3,
-        emoji: '🙂',
+        emoji: '😎',
         hintsCount: 3,
         countSafeClick: 3
     }
@@ -113,7 +113,7 @@ function minesAroundCount(board, cellI, cellJ) {
 
 function updateShownCount() {
     gGame.emptyCellShownCount++
-    updateEmoji('🙂')
+    updateEmoji('😎')
 }
 
 function updateMarkedCount(diff) {
@@ -131,8 +131,8 @@ function updateLifeCount() {
 function checkGameOver() {
     if (!gGame.isOn) return
     var countCell = gBoard.length ** 2
-    if(gGame.emptyCellShownCount > countCell /2) renderActionCard(4)
-    if(gGame.emptyCellShownCount > countCell /1.2) renderActionCard(5)
+    if (gGame.emptyCellShownCount > countCell / 2) renderActionCard(4)
+    if (gGame.emptyCellShownCount > countCell / 1.2) renderActionCard(5)
     if (gGame.minesMarkedCount + gGame.emptyCellShownCount === countCell) {
         gameOver(true)
     }
@@ -152,10 +152,10 @@ function gameOver(isVictory) {
     if (isVictory) {
         updateEmoji('😏')
         updateGameOverModal(isVictory)
-        onToggleModalByClass('.game-over-panel', false)
+        setTimeout(onToggleModalByClass, 1200, '.game-over-panel', false)
     }
     updateGameOverModal(isVictory)
-    onToggleModalByClass('.game-over-panel', false)
+    setTimeout(onToggleModalByClass, 1200, '.game-over-panel', false)
     renderMines()
 }
 
@@ -321,6 +321,7 @@ function sortPlayersByScore(players) {
 function updateSafeClick(pos) {
     gBoard[pos.i][pos.j].isSafe = false
     gGame.countSafeClick--
+    renderSafeClickCount()
 }
 
 function safeClick() {

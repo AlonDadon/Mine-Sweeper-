@@ -8,7 +8,7 @@ body {
     font-family: cursive;
 }
 
- button:hover {
+button:hover {
     color: rgb(245, 245, 245);
     text-decoration: none;
     border: solid darkorchid 2px;
@@ -16,8 +16,7 @@ body {
     box-shadow: inset 0px 0px 8px 0px black;
 }
 
-
-header h1{
+header h1 {
     font-size: 1.5em;
     text-align: center;
     color: #ffffff;
@@ -85,32 +84,38 @@ header h1{
     border: solid #ffffff 2px;
     margin-right: 3px;
 }
+
 /* tree panel */
-.tree-panel{
+
+.tree-panel {
     display: flex;
     justify-content: center;
     margin-top: 0.2em;
-    }
-    .btn-level{
-        cursor: pointer;
-        -webkit-border-radius: 16;
-        -moz-border-radius: 16;
-        border-radius: 29px;
-        font-family: cursive;
-        color: #ffffff;
-        background: #3498db;
-        border: solid #ffffff 2px;
-        margin-right: 3px;
-    }
-    .chose{
-        background-color: #2e23d8;
+}
+
+.btn-level {
+    cursor: pointer;
+    -webkit-border-radius: 16;
+    -moz-border-radius: 16;
+    border-radius: 29px;
+    font-family: cursive;
+    color: #ffffff;
+    background: #3498db;
+    border: solid #ffffff 2px;
+    margin-right: 3px;
+}
+
+.chose {
+    background-color: #2e23d8;
     box-shadow: inset 0px 0px 8px 0px black;
 }
 
 /* emoji */
-.emoji{
+
+.emoji {
     display: flex;
     justify-content: center;
+    text-shadow: 1px 0px 5px black;
 }
 
 /* table */
@@ -142,6 +147,7 @@ header h1{
 }
 
 /* game over modal */
+
 .game-over-panel {
     display: flex;
     flex-direction: column;
@@ -175,11 +181,13 @@ header h1{
     margin: auto;
     display: block;
 }
-.user-input{
+
+.user-input {
     width: 7em;
     font-size: .5em;
 }
-.btn-form{
+
+.btn-form {
     cursor: pointer;
     -webkit-border-radius: 16;
     -moz-border-radius: 16;
@@ -189,6 +197,14 @@ header h1{
     background: #3498db;
     border: solid #ffffff 2px;
     margin-right: 3px;
+}
+
+.btn-close-modal {
+    position: absolute;
+    right: 0;
+    font-size: .2em;
+    background: none;
+    color: antiquewhite;
 }
 
 /* leader-boards modal */
@@ -260,29 +276,32 @@ header h1{
 }
 
 /* card-action */
-    .action-card{
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        position: absolute;
-        top: 45%;
-        right: 10%;
-        border: 2px solid;
-        color: white;
-        font-size: 1.3em;
-    }
-    
-    .action-txt{
-        text-align: center;
-        font-size: .8em;
-    }
-    .action-img{
-        height: 15rem;
-        width: 14rem;
 
-    }
+.action-card {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    top: 45%;
+    right: 10%;
+    border: 2px solid;
+    color: white;
+    font-size: 1.3em;
+    box-shadow: 4px -1px 4px 0px black;
+}
+
+.action-txt {
+    text-align: center;
+    font-size: .8em;
+}
+
+.action-img {
+    height: 15rem;
+    width: 14rem;
+}
 
 /* util */
+
 .hidden {
     display: none;
 }
@@ -292,4 +311,3 @@ header h1{
     justify-content: center;
     align-items: center;
 }
-

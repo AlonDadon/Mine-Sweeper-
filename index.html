@@ -9,14 +9,14 @@
     <title>Mine Sweeper</title>
 </head>
 
-<body onload="init()">
+<body onload="init()" >
 
     <header>
         <h1>Mine Sweeper</h1>
         <div class="header-panel">
             <div class="first-panel">
                 <div class="safe-clicks">
-                    <button class="btn btn-safe-click" onclick="onSafeClick()">Safe clicks</button>
+                    <button class="btn btn-safe-click" onclick="onSafeClick()">Safe clicks: <span>3</span></button>
                 </div>
                 <div class="life">
                     <p><span class="life-count">💖💖💖</span></p>
@@ -44,24 +44,29 @@
 
             <div class="tree-panel">
                 <div class="level">
-                    <button class="btn-level btn1 chose" onclick="onChoseLevel(4, 2,this)">beginner</button>
+                    <button class="btn-level btn1 " onclick="onChoseLevel(4, 2,this)">beginner</button>
                     <button class="btn-level btn2  " onclick="onChoseLevel(8,12,this)">experienced</button>
-                    <button class="btn-level btn3 " onclick="onChoseLevel(12,30,this)">master</button>
+                    <button class="btn-level btn3 chose" onclick="onChoseLevel(12,30,this)">master</button>
                 </div>
             </div>
             <div class="emoji">
                 <p class="emoji-action">🙂</p>
             </div>
-    </header>
-
-    <main class="main">
-        <table>
-            <tbody class="board-container"></tbody>
-        </table>
+        </header>
+        
+        <main class="main">
+            <table>
+                <tbody class="board-container"></tbody>
+            </table>
+            <div  class="action-card ">
+                <p class="action-txt" >Are you ready to start playing?</p>
+                <img class="action-img" src="images/1.jpg" alt="">
+            </div>
     </main>
 
     <div class="game-over-panel hidden">
         <div>
+            <button class="btn-close-modal" type="button" onclick="onToggleModalByClass('.game-over-panel', true)">x</button>
             <p class="is-victory">Well done Champion, you managed to beat the wolf. But it's not over!<br>
                 Continue to the next challenge and break the record</p>
             <p>Save your score</p>
@@ -81,10 +86,6 @@
         </table>
     </div>
 
-    <div class="action-card">
-        <p class="action-txt" >Are you ready to start playing?</p>
-        <img class="action-img" src="images/1.jpg" alt="">
-    </div>
 
     <script src="js/storage-service.js"></script>
     <script src="js/util.js"></script>
