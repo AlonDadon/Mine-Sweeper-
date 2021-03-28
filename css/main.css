@@ -2,10 +2,13 @@
     box-sizing: border-box;
 }
 
+@import "../font/Bangers-Regular.ttf";
+
 body {
     margin: 0%;
     background-color: rgb(137 178 255);
-    font-family: cursive;
+    /* font-family: cursive; */
+    font-family: 'Bangers', cursive;
 }
 
 button:hover {
@@ -54,7 +57,10 @@ header h1 {
     border: solid #ffffff 2px;
     margin-right: 3px;
 }
+.hints-count{
 
+    background-color: #525252
+}
 /* two panel */
 
 .two-panel {
@@ -284,7 +290,7 @@ header h1 {
     justify-content: center;
     flex-direction: column;
     position: absolute;
-    top: 45%;
+    top: 46%;
     right: 10%;
     border: 2px solid;
     color: white;
@@ -301,6 +307,37 @@ header h1 {
     height: 15rem;
     width: 14rem;
 }
+
+/* balloon */
+
+ .balloon-container{
+   position: absolute;
+    z-index: -1;
+    width: 25rem;
+    top: 0px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgb(57 0 158);
+}
+
+.balloon{
+height: 5.5rem;
+width:2.8rem;
+position:absolute;
+border-radius: 50%;
+bottom: 1.25rem;
+}
+
+.hide{
+   transition: 1s;
+   opacity: 0;
+}  
+.show{
+    transition: 1s;
+    opacity: 1;
+ }  
+
 
 /* util */
 

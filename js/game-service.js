@@ -81,7 +81,8 @@ function buildBoard(size) {
                 isShown: false,
                 isMine: false,
                 isMarked: false,
-                isSafe: false
+                isSafe: false,
+                isIronMan: false
             }
             board[i][j] = cell
         }
@@ -121,18 +122,26 @@ function updateMarkedCount(diff) {
     gGame.minesMarkedCount += diff
 }
 
-function updateLifeCount() {
+function updateLifeCount(pos) {
+    if (gIsHint) return
     gGame.lifeCount--
     renderLife()
     updateEmoji('😵')
-    checkGameOver()
+    checkGameOver(pos)
 }
 
-function checkGameOver() {
+function checkGameOver(pos) {
     if (!gGame.isOn) return
     var countCell = gBoard.length ** 2
     if (gGame.emptyCellShownCount > countCell / 2) renderActionCard(4)
     if (gGame.emptyCellShownCount > countCell / 1.2) renderActionCard(5)
+
+    if (gIsIronMan) {
+        if (gBoard[gIronMan.pos.i][gIronMan.pos.j].isShown) {
+            gameOver(true)
+        }
+    }
+
     if (gGame.minesMarkedCount + gGame.emptyCellShownCount === countCell) {
         gameOver(true)
     }
@@ -150,10 +159,14 @@ function gameOver(isVictory) {
     gGame.isOn = false
     stopTime()
     if (isVictory) {
+        playBalloonEffect()
         updateEmoji('😏')
         updateGameOverModal(isVictory)
         setTimeout(onToggleModalByClass, 1200, '.game-over-panel', false)
     }
+    gBoard[gIronMan.pos.i][gIronMan.pos.j].isShown = true
+    console.log(gBoard[gIronMan.pos.i][gIronMan.pos.j].isShown);
+    console.log(gBoard[gIronMan.pos.i][gIronMan.pos.j]);
     updateGameOverModal(isVictory)
     setTimeout(onToggleModalByClass, 1200, '.game-over-panel', false)
     renderMines()
@@ -161,12 +174,15 @@ function gameOver(isVictory) {
 
 function updateCellShown(pos) {
     if (gBoard[pos.i][pos.j].isShown) return
-    if (gBoard[pos.i][pos.j].isMine && !gBoard[pos.i][pos.j].isShown) {
-        gBoard[pos.i][pos.j].isMarked = true
-        updateMarkedCount(1)
-    } else updateShownCount()
+    if (!gIsHint) {
+        if (gBoard[pos.i][pos.j].isMine && !gBoard[pos.i][pos.j].isShown) {
+            gBoard[pos.i][pos.j].isMarked = true
+            updateMarkedCount(1)
+        } else updateShownCount()
+
+    }
     gBoard[pos.i][pos.j].isShown = true
-    checkGameOver()
+    checkGameOver(pos)
 }
 
 function updateCellMarked(pos, value) {
@@ -216,7 +232,7 @@ function expandShown(pos) {
     var countCellNegs = minesAroundCount(gBoard, pos.i, pos.j)
     var currCell = gBoard[pos.i][pos.j]
     if (currCell.isSafe) updateSafeClick(pos)
-    if (currCell.isMine && !currCell.isShown) updateLifeCount()
+    if (currCell.isMine && !currCell.isShown) updateLifeCount(pos)
     updateCellShown(pos)
     if (!gIsHint) {
         if (countCellNegs || currCell.isMine) return
@@ -241,6 +257,7 @@ function expandShown(pos) {
         if (gEmptyCells.length) loopExpandShown()
     }
     renderActionCard(6)
+
 }
 
 function loopExpandShown() {

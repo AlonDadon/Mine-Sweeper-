@@ -35,7 +35,7 @@
             </div>
             <div class="iron-man">
                 <label>Iron man mode🐱‍🏍</label>
-                <input id="iron-man-box" type="checkbox" onchange="onIronMan(event)" />
+                <input id="iron-man-box" type="checkbox" onchange="onIsIronMan(event)" />
                 <div>
                     <button class="btn-leader-boards"
                         onclick="onToggleModalByHtml('.leader-boards-container',false)">Leaderboards</button>
@@ -44,9 +44,10 @@
 
             <div class="tree-panel">
                 <div class="level">
-                    <button class="btn-level btn1 " onclick="onChoseLevel(4, 2,this)">beginner</button>
-                    <button class="btn-level btn2  " onclick="onChoseLevel(8,12,this)">experienced</button>
-                    <button class="btn-level btn3 chose" onclick="onChoseLevel(12,30,this)">master</button>
+                    <button class="btn-level btn1 " onclick="onChoseLevel(4, 2,this)">Beginner</button>
+                    <button class="btn-level btn2  " onclick="onChoseLevel(8,12,this)">Experienced</button>
+                    <button class="btn-level btn3 chose" onclick="onChoseLevel(12,30,this)">Master</button>
+                    <button class="btn-level btn4  hide" onclick="onChoseLevel(10,28,this)">Hero</button>
                 </div>
             </div>
             <div class="emoji">
@@ -87,10 +88,16 @@
     </div>
 
 
+    <div class="balloon-container hidden">
+    </div>
+
+
     <script src="js/storage-service.js"></script>
     <script src="js/util.js"></script>
     <script src="js/game-service.js"></script>
     <script src="js/game-controller.js"></script>
+    <script src="js/balloon-effect.js"></script>
+    <script src="js/ironManMode.js"></script>
 </body>
 
 </html>

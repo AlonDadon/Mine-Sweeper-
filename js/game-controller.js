@@ -1,7 +1,7 @@
 'use strict'
 
-const MINE = '🧨'
-const FLAG = '🌳'
+const MINE_IMG = '🧨'
+const FLAG_IMG = '🌳'
 var gFirstClick
 var gRenderTimer
 var gLastElBtn = document.querySelector('.btn3')
@@ -34,11 +34,12 @@ function renderBoard(board) {
             if (!currCell.isShown) cellClass = ' is-not-shown'
             if (currCell.isMine) cellClass += ' is-mine'
             if (currCell.isSafe) cellClass = ' is-safe'
-            if (currCell.isMine && currCell.isShown) cellTxt = MINE
+            if (currCell.isMine && currCell.isShown) cellTxt = MINE_IMG
             if (currCell.minesAroundCount && currCell.isShown) {
                 cellTxt = currCell.minesAroundCount
             }
-            if (!currCell.isShown && currCell.isMarked) cellTxt = FLAG
+            if (!currCell.isShown && currCell.isMarked) cellTxt = FLAG_IMG
+            if (currCell.isIronMan && currCell.isShown) cellTxt = gIronMan.Img
 
             cellClass += ' ' + getClassName({ i: i, j: j })
             strHTML += `\t<td ${tdDataId} class="cell ${cellClass}"
@@ -52,11 +53,9 @@ function renderBoard(board) {
     elBoard.innerHTML = strHTML
 }
 
-function onCellClicked(elCell, i, j) {
+function onCellClicked(elCell) {
     var game = getGGame()
     if (!game.isOn) return
-
-
     var pos = {
         i: +elCell.dataset.i,
         j: +elCell.dataset.j
@@ -73,6 +72,7 @@ function onCellClicked(elCell, i, j) {
         var cursor = document.querySelector('body')
         cursor.style.cursor = 'grab'
     }
+    if (gIsIronMan) moveIronMan()
     var board = getBoard()
     renderBoard(board)
 }
@@ -109,6 +109,11 @@ function onCellMarked(elCell, ev) {
 }
 
 function onChoseLevel(size, mines, elBtn) {
+    if (gIsIronMan) {
+        size = 12
+        mines = 28
+        elBtn = document.querySelector('.btn4')
+    }
     gLastElBtn.classList.remove('chose')
     gLastElBtn = elBtn
     gLastElBtn.classList.add('chose')
@@ -149,8 +154,11 @@ function renderTimer() {
 }
 
 function onHints() {
+    if (gIsIronMan) return
+
     var game = getGGame()
     if (!game.isOn) return
+
     var cursor = document.querySelector('body')
     cursor.style.cursor = 'grabbing'
     var hint = getGGame()
@@ -171,13 +179,6 @@ function renderHints() {
     cursor.style.cursor = 'auto'
 }
 
-function onIronMan(ev) {
-    if (ev.currentTarget.checked) {
-        alert('Iron man')
-    } else {
-        alert('Not iron man')
-    }
-}
 
 function onAddPlayer() {
     var firstName = document.querySelector('#f-name').value
@@ -194,6 +195,16 @@ function onToggleModalByClass(className, isHidden) {
     var elToggle = document.querySelector(className)
     if (isHidden) elToggle.classList.add('hidden')
     else elToggle.classList.remove('hidden')
+}
+function onToggleByOpacity(className, isHidden) {
+    var elToggle = document.querySelector(className)
+    if (isHidden) {
+        elToggle.classList.remove('hide')
+        elToggle.classList.add('show')
+    } else {
+        elToggle.classList.add('hide')
+        elToggle.classList.remove('show')
+    }
 }
 
 function renderLeaderBoards() {
@@ -223,17 +234,17 @@ function onSafeClick() {
     safeClick()
     var board = getBoard()
     renderBoard(board)
-   
+
 }
 
 function updateGameOverModal(isVictory) {
     onToggleModalByClass('.action-card', true)
     var victoryStr = `Well done Champion, you managed to beat the wolf.
- But it's not over! Continue to the next challenge and break the record`
+    But it's not over! Continue to the next challenge and break the record`
     var elImg = document.querySelector('.is-victory-img')
     if (!isVictory) {
         victoryStr = `You have managed to take another step on the road to success
-     ... the best way to expand is to learn from your losses !! Try again`
+        ... the best way to expand is to learn from your losses !! Try again`
         elImg.src = 'images/6.jpg'
     } else elImg.src = 'images/super-genius.jpg'
     var elStr = document.querySelector('.is-victory')
@@ -272,11 +283,4 @@ function renderSafeClickCount() {
     var game = getGGame()
     var elSafeClickCount = document.querySelector('.btn-safe-click span')
     elSafeClickCount.innerText = game.countSafeClick
-}
-
-
-
-function playSound(sound) {
-    var playSound = new Audio(`./sound/${sound}.mp3`)
-    playSound.play()
 }
