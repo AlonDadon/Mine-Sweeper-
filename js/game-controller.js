@@ -249,7 +249,12 @@ function updateGameOverModal(isVictory) {
     } else elImg.src = 'images/super-genius.jpg'
     var elStr = document.querySelector('.is-victory')
     elStr.innerText = victoryStr
+    var score = getScore()
+    var elScore = document.querySelector('.score')
+    console.log(elScore);
+    elScore.innerText = score
 }
+
 
 function renderActionCard(idx) {
     var actions = [

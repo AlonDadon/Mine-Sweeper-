@@ -165,8 +165,6 @@ function gameOver(isVictory) {
         setTimeout(onToggleModalByClass, 1200, '.game-over-panel', false)
     }
     gBoard[gIronMan.pos.i][gIronMan.pos.j].isShown = true
-    console.log(gBoard[gIronMan.pos.i][gIronMan.pos.j].isShown);
-    console.log(gBoard[gIronMan.pos.i][gIronMan.pos.j]);
     updateGameOverModal(isVictory)
     setTimeout(onToggleModalByClass, 1200, '.game-over-panel', false)
     renderMines()
@@ -311,19 +309,24 @@ function addNewPlayer(firstName, lastName) {
 }
 
 function _createPlayer(firstName, lastName) {
-    var scoreByLevel = gLevel.size / gGame.secsPassed
-    var finalScore = gGame.emptyCellShownCount * scoreByLevel * 1000
-    if (!finalScore) finalScore = getRandomInt(2, 2000)
+  var userScore =  getScore()
+    if (!userScore) userScore = getRandomInt(2, 2000)
     var player = {
         id: _makeId(),
         firstName,
         lastName,
         gameTime: gGame.secsPassed,
-        score: parseInt(finalScore)
+        score: userScore
     }
     return player
 }
 
+function getScore() {
+    var scoreByLevel = gLevel.size / gGame.secsPassed
+    var mineBonus = gLevel.mines - gGame.minesMarkedCount
+    var finalScore = gGame.emptyCellShownCount * scoreByLevel * mineBonus 
+    return parseInt(finalScore)
+}
 function _saveLeaderBoardsToStorage() {
     saveToStorage(STORAGE_KEY, gLeaderBoards)
 }
