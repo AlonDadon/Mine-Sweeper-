@@ -104,7 +104,7 @@ function onCellMarked(elCell, ev) {
         renderCell(pos, '')
     } else {
         updateCellMarked(pos, true)
-        renderCell(pos, FLAG)
+        renderCell(pos, FLAG_IMG)
     }
 }
 
