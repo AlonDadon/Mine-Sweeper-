@@ -18,7 +18,7 @@ function onIsIronMan(ev) {
         onToggleModalByClass('.balloon-container', false)
         var elBtn = document.querySelector('.btn4')
         onChoseLevel(10, 28, elBtn)
-
+        renderActionCard(7)
         onToggleByOpacity('.btn4', true)
     }
     else {

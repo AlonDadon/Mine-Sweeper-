@@ -104,7 +104,7 @@ function onCellMarked(elCell, ev) {
         renderCell(pos, '')
     } else {
         updateCellMarked(pos, true)
-        renderCell(pos, FLAG_IMG)
+        renderCell(pos, FLAG)
     }
 }
 
@@ -154,8 +154,8 @@ function renderTimer() {
 }
 
 function onHints() {
-    if (gIsIronMan) return
-
+    
+    if (gIsIronMan) return alert('Does not work in Iron Man mode')
     var game = getGGame()
     if (!game.isOn) return
 
@@ -209,7 +209,7 @@ function onToggleByOpacity(className, isHidden) {
 
 function renderLeaderBoards() {
     var strHTML = '<thead><tr><th class="table-header" colspan="2">Leaderboards</th>'
-    strHTML += `<th class="table-header"><button onclick="onToggleModalByHtml('.leader-boards-container',true)">x</button></th></tr>`
+    strHTML += `<th class="table-header"><button class="btn-close" onclick="onToggleModalByHtml('.leader-boards-container',true)">x</button></th></tr>`
     strHTML += '<tr><th>Division Rank</th><th>Full name</th><th>score</th></tr></thead><tbody>'
     var board = getLeaderBoards()
     for (var i = 0; i < board.length && i < 5; i++) {
@@ -249,15 +249,10 @@ function updateGameOverModal(isVictory) {
     } else elImg.src = 'images/super-genius.jpg'
     var elStr = document.querySelector('.is-victory')
     elStr.innerText = victoryStr
-    var score = getScore()
-    var elScore = document.querySelector('.score')
-    console.log(elScore);
-    elScore.innerText = score
 }
 
-
 function renderActionCard(idx) {
-    var actions = [
+    var card = [
         { txt: 'Are you ready to start playing?', imgNum: 1 },
         { txt: 'I\'m waiting for you', imgNum: 2 },
         { txt: 'You are on the right path', imgNum: 3 },
@@ -265,11 +260,12 @@ function renderActionCard(idx) {
         { txt: 'I have a few more surprises for you', imgNum: 8 },
         { txt: 'You will never defeat me', imgNum: 5 },
         { txt: 'I\'m close to you', imgNum: 9 },
+        { txt: 'Discover Iron Man and win', imgNum: 6 },
     ]
     var elTxt = document.querySelector('.action-txt')
     var elImg = document.querySelector('.action-img')
-    elImg.src = `images/${actions[idx].imgNum}.jpg`
-    elTxt.innerText = actions[idx].txt
+    elImg.src = `images/${card[idx].imgNum}.jpg`
+    elTxt.innerText = card[idx].txt
 
 }
 
